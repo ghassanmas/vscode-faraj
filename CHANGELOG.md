@@ -1,9 +1,5 @@
 # Change Log
 
-All notable changes to the "vscode-faraj" extension will be documented in this file.
+- `0.0.1` Inital commit
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+- `0.0.2` Add toggle to whether to insert tranlated text after selected or replace it with selected.

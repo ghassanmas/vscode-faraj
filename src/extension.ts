@@ -10,15 +10,17 @@ interface LibreTranslateResponse {
 }
 
 
+const config = vscode.workspace.getConfiguration('faraj');
+const Librahost = config.get<string>('libratranslateHost');
+const Libraport = config.get<string>('libratranslatePort');
+const insertAfter = config.get<boolean>('insertAfter');
+
 async function translateWithLibreTranslate(
   text: string,
   sourceLang: string,
   targetLang: string
 ): Promise<string> {
 
-	const config = vscode.workspace.getConfiguration('faraj');
-	const Librahost = config.get<string>('libratranslateHost');
-	const Libraport = config.get<string>('libratranslatePort');
 
   const response = await fetch(`http://${Librahost}:${Libraport}/translate`, {
     method: 'POST',
@@ -55,6 +57,8 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
+	// Todo: Refactir with other command
+	// Todo: Make langauge to/from configuraable somehow
 	const disposable_ar = vscode.commands.registerCommand('vscode-faraj.translate_to_ar', async () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
@@ -66,7 +70,9 @@ export function activate(context: vscode.ExtensionContext) {
 	const arText = await translateWithLibreTranslate(selectedText,'en','ar')
 
 	editor.edit(editBuilder => {
-	editBuilder.replace(selection, arText);
+	console.log("insertAfter",insertAfter)
+	const finalText = insertAfter ? `${selectedText} \n ${arText}` : arText;
+	editBuilder.replace(selection, finalText);
 	});
 
 
@@ -82,10 +88,10 @@ export function activate(context: vscode.ExtensionContext) {
 		const selectedText: string = editor.document.getText(selection);
 		const enText = await translateWithLibreTranslate(selectedText,'ar','en')
 
-
+		const finalText = insertAfter ? `${selectedText} \n ${enText}` : enText;
 
 		editor.edit(editBuilder => {
-		editBuilder.replace(selection, enText);
+		editBuilder.replace(selection, finalText);
 		});
 
 
