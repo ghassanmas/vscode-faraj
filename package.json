@@ -1,0 +1,66 @@
+{
+  "name": "vscode-faraj",
+  "displayName": "vscode-faraj",
+  "description": "",
+  "version": "0.0.1",
+  "repository": "github.com/ghassanmas/vscode-faraj.git",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-faraj.translate_to_ar",
+        "title": "Translate and replace selected text to Arabic"
+      },
+      {
+        "command": "vscode-faraj.translate_to_en",
+        "title": "Translate and replace selected text to English"
+      }
+    ],
+    "configuration": {
+    "type": "object",
+    "title": "Faraj VScode",
+    "properties": {
+      "faraj.libratranslateHost": {
+        "type": "string",
+        "description": "Host of libratranslate"
+      },
+      "faraj.libratranslatePort": {
+        "type": "string",
+        "description": "port of libratranslate"
+      }
+    }
+    }
+
+  
+
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.101.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
