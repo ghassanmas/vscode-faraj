@@ -11,8 +11,8 @@ interface LibreTranslateResponse {
 
 
 const config = vscode.workspace.getConfiguration('faraj');
-const Librahost = config.get<string>('libratranslateHost');
-const Libraport = config.get<string>('libratranslatePort');
+const libreHost = config.get<string>('libretranslateHost');
+const librePort = config.get<string>('libretranslatePort');
 const insertAfter = config.get<boolean>('insertAfter');
 
 async function translateWithLibreTranslate(
@@ -22,7 +22,7 @@ async function translateWithLibreTranslate(
 ): Promise<string> {
 
 
-  const response = await fetch(`http://${Librahost}:${Libraport}/translate`, {
+  const response = await fetch(`http://${libreHost}:${librePort}/translate`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

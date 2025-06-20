@@ -1,9 +1,10 @@
 {
   "name": "vscode-faraj",
   "displayName": "vscode-faraj",
-  "description": "",
+  "description": "A utility VS code extension, uses libretranslate to quickly translate",
   "version": "0.0.2",
-  "repository": "github.com/ghassanmas/vscode-faraj.git",
+  "publisher":"GhassanMaslamani",
+  "repository": "https://github.com/ghassanmas/vscode-faraj.git",
   "engines": {
     "vscode": "^1.101.0"
   },
@@ -27,13 +28,13 @@
     "type": "object",
     "title": "Faraj VScode",
     "properties": {
-      "faraj.libratranslateHost": {
+      "faraj.libretranslateHost": {
         "type": "string",
-        "description": "Host of libratranslate"
+        "description": "Host of libretranslate"
       },
-      "faraj.libratranslatePort": {
+      "faraj.libretranslatePort": {
         "type": "string",
-        "description": "port of libratranslate"
+        "description": "port of libretranslate"
       },
       "faraj.insertAfter":{
         "type": "boolean",
