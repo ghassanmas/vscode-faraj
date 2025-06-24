@@ -15,22 +15,24 @@ This an expirmental/personal, vscode extension, you can use at your own risk, so
     - outputs `vscode-faraj-0.0.2.vsix` file
 - Install as file `code --install-extension vscode-faraj-0.0.2.vsix`
 
-- Install and run [libratranslate](https://github.com/LibreTranslate/LibreTranslate)
+- Install and run [libretranslate](https://github.com/LibreTranslate/LibreTranslate)
 
 ### Configuration
 
-`faraj.libratranslateHost` and `libratranslatePort`, according to where libratranslate is running. e.g `libratranslate --host 192.168.1.5 --port 5555`; Then `192.168.1.5`, and `5555` would crosspond to the host and port respectively.
+`faraj.libretranslateHost` and `libretranslatePort`, according to where libretranslate is running. e.g `libretranslate --host 192.168.1.5 --port 5555`; Then `192.168.1.5`, and `5555` would crosspond to the host and port respectively.
 
 `faraj.insertAfter` default `true`, if `false`, the selected text would be replaced with tranlsation.  I opted to make it on, because _I assume one mostly need to adjust translated text, would need to compare with orignal then_.
 
 ### Usage
 
-Just select any text in any file, then open command pallet, search for, `Translate the selected...etc`.
+Just select any text in any file, then open command pallet (Cmd+Shift+P/Ctrl+Shift+P), search for, `Translate the selected...etc`. As showen in screenshot
+
+![Screenshot command pallet VS code](./cmd_screenshot.png?raw=true)
 
 
 ### Limitaion
 
-- Only translate to/from English, Arabic. Woiudl make it configurable if/when time allows. 
+- Only translate to/from English, Arabic. would make it configurable when time allows. 
 
 - Changing any setting or config, requires to restart VS code.
 
