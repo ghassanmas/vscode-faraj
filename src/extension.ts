@@ -1,3 +1,5 @@
+//Todo: Reafctor this file and remove console log
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
@@ -15,7 +17,7 @@ const libreHost = config.get<string>('libretranslateHost');
 const librePort = config.get<string>('libretranslatePort');
 const insertAfter = config.get<boolean>('insertAfter');
 
-async function translateWithLibreTranslate(
+export async function translateWithLibreTranslate(
   text: string,
   sourceLang: string,
   targetLang: string
@@ -37,7 +39,7 @@ async function translateWithLibreTranslate(
   });
 
   if (!response.ok) {
-	console.log("eehy, error")
+	console.log("eehy, error");
     throw new Error(`Translation failed: ${response.statusText}`);
   }
 
@@ -47,12 +49,20 @@ async function translateWithLibreTranslate(
 }
 
 
-
 export function activate(context: vscode.ExtensionContext) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "vscode-faraj" is now active!');
+
+	// Check if configuration values are set
+
+	console.log("libreHost",libreHost);
+	console.log("librePort",librePort==="");
+
+	if (!libreHost || !librePort) {
+		vscode.window.showErrorMessage('Please set the libretranslateHost or/and libretranslatePort in your settings.');
+	}
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
@@ -62,15 +72,20 @@ export function activate(context: vscode.ExtensionContext) {
 	const disposable_ar = vscode.commands.registerCommand('vscode-faraj.translate_to_ar', async () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
+	if (!libreHost || !librePort) {
+		vscode.window.showErrorMessage('Please set the libretranslateHost or/and libretranslatePort in your settings.');
+		return;
+	}
+
 	const editor = vscode.window.activeTextEditor;
-    if (!editor) return;
+    if (!editor) {return;}
 
     const selection: vscode.Selection = editor.selection;
     const selectedText: string = editor.document.getText(selection);
-	const arText = await translateWithLibreTranslate(selectedText,'en','ar')
+	const arText = await translateWithLibreTranslate(selectedText,'en','ar');
 
 	editor.edit(editBuilder => {
-	console.log("insertAfter",insertAfter)
+	console.log("insertAfter",insertAfter);
 	const finalText = insertAfter ? `${selectedText} \n ${arText}` : arText;
 	editBuilder.replace(selection, finalText);
 	});
@@ -79,14 +94,21 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage(`Translated selected text to Arabic.`);
 	});
 
-		const disposable_en = vscode.commands.registerCommand('vscode-faraj.translate_to_en', async () => {
+	const disposable_en = vscode.commands.registerCommand('vscode-faraj.translate_to_en', async () => {
+		
+	if (!libreHost || !librePort) {
+		vscode.window.showErrorMessage('Please set the libretranslateHost or/and libretranslatePort in your settings.');
+		return;
+	}
+
+
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
 		const editor = vscode.window.activeTextEditor;
-    	if (!editor) return;
+    	if (!editor) {return;}
 		const selection: vscode.Selection = editor.selection;
 		const selectedText: string = editor.document.getText(selection);
-		const enText = await translateWithLibreTranslate(selectedText,'ar','en')
+		const enText = await translateWithLibreTranslate(selectedText,'ar','en');
 
 		const finalText = insertAfter ? `${selectedText} \n ${enText}` : enText;
 
@@ -98,7 +120,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('translated selected to English');
 	});
 
-
+	console.log("aabout to register commands");
 	context.subscriptions.push(disposable_ar);
 	context.subscriptions.push(disposable_en);
 
